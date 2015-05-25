@@ -8,19 +8,13 @@ public class Spawn : MonoBehaviour {
 
     void Start()
     {
-        StartCoroutine(SpawnUnits(spawnDelay));     // Starts the SpawnUnits coroutine
+        InvokeRepeating("SpawnUnit", 0, spawnDelay);     // Calls SpawnUnit() method, repeats every spawnDelay seconds
     }
 
-    IEnumerator SpawnUnits(float _spawnDelay)
+    void SpawnUnit()
     {
-        while (true)        // run forever
-        {
-            // Spawn the prefab at spawner position with default rotation values
-            Instantiate(spawnUnit, transform.position, Quaternion.identity);
-
-            // Wait for spawnDelay seconds before resuming the WHILE loop
-            yield return new WaitForSeconds(_spawnDelay); 
-        }   
+        // Spawn the prefab at spawner position with default rotation values
+        Instantiate(spawnUnit, transform.position, Quaternion.identity);  
     }
 
     void OnDrawGizmos()
