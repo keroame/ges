@@ -6,6 +6,7 @@ public class Door : MonoBehaviour {
     public GameObject doorObject;               // gameobject to rotate
     public float rotationSpeed = 1.0f;          // opening and closing rotation speed
     public float doorCloseDelaySeconds = 2.0f;  // delay in seconds after player leaves trigger before door starts to close
+    public bool criteriaFulfilled = false;      // variable to detect if criteria have been fulfilled
 
     private Quaternion originalRotation;        // original rotation of door
     private Quaternion finalRotation;           // rotation value of fully opened door
@@ -39,13 +40,14 @@ public class Door : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")      // when player enters the door trigger
-            doorOpen = true;    // open door
+            if (criteriaFulfilled)      // if criteria has been fulfilled
+                doorOpen = true;        // open door
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")      // when player leaves the door trigger
-            StartCoroutine(CloseDelay());   // start coroutine
+            StartCoroutine(CloseDelay());   // start door closing coroutine
     }
 
     IEnumerator CloseDelay()
