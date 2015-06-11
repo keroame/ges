@@ -55,6 +55,7 @@ public class Spawn : MonoBehaviour {
                 Instantiate(spawnUnit, transform.position, transform.rotation);
                 spawnCount++;       // increment number of spawned units
             }
+            yield return null;
         }    
     }
 
